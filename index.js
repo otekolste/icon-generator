@@ -5,11 +5,9 @@ const fs = require('fs');
 inquirer
     .prompt([
         {
-            type: 'list',
-            message: 'Welcome to the logo generator! Please get started by picking your desired shape:',
-            name: 'logoShape',
-            choices: ['Triangle','Circle','Square']
-
+            type:'input',
+            message: 'Finally, enter what text you would like to display:',
+            name: 'logoText'
         },
         {
             type: 'list',
@@ -18,9 +16,11 @@ inquirer
             choices: ['red','orange','yellow','green','blue','purple','pink']
         },
         {
-            type:'input',
-            message: 'Finally, enter what text you would like to display:',
-            name: 'logoText'
+            type: 'list',
+            message: 'Welcome to the logo generator! Please get started by picking your desired shape:',
+            name: 'logoShape',
+            choices: ['Triangle','Circle','Square']
+
         }
     ])
     .then((response) => {
@@ -49,7 +49,7 @@ function createShape(response) {
         return `<svg width="300" height="200" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <g>
             ${newLogo.render()}
-            <text x="50%" y="50%" font-variant="small-caps" font-size="75%" dominant-baseline="middle" text-anchor="middle" fill="white">${response.logoText}</text>
+            <text x="50%" y="50%" font-variant="small-caps" font-size="70" dominant-baseline="middle" text-anchor="middle" fill="white">${response.logoText}</text>
         </g>
 </svg>`;
 
