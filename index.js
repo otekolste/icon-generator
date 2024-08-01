@@ -24,5 +24,30 @@ inquirer
         }
     ])
     .then((response) => {
-        console.log('thanks!');
+        console.log(createShape(response));
+        fs.writeFile('logo.svg',createShape(response), (error) =>
+            error ? console.error(`Sorry, something went wrong: ${error}`) : console.log('Successfully generated logo.svg!')
+    );
+     //   console.log('thanks!');
     })
+
+    function createShape(response) {
+        let newLogo;
+        switch(response.logoShape) {
+            case 'Triangle':
+                newLogo = new Shapes.Triangle();
+            case 'Square':
+                newLogo = new Shapes.Square();
+            case 'Circle':
+                newLogo = new Shapes.Circle();
+        } 
+        newLogo.setColor(response.logoColor);
+        newLogo.setText(response.logoText);
+        return `<svg width="300" height="200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        ${newLogo.render()}
+        </svg>`;
+
+
+    }
+
+    
