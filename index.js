@@ -1,23 +1,24 @@
 const inquirer = require('inquirer');
 const Shapes = require('./lib/shapes.js');
 const fs = require('fs');
+const checkInput = require('./lib/checkInput');
 
 inquirer
     .prompt([
         {
             type:'input',
-            message: 'Finally, enter what text you would like to display:',
-            name: 'logoText'
+            message: 'Welcome to the logo generator! To start, please enter what text you would like to display, up to 3 characters:',
+            name: 'logoText',
+            validate: checkInput.check
         },
         {
-            type: 'list',
-            message: 'Next, pick a color:',
+            type: 'input',
+            message: 'Next, enter a color keyword or code:',
             name: 'logoColor',
-            choices: ['red','orange','yellow','green','blue','purple','pink']
         },
         {
             type: 'list',
-            message: 'Welcome to the logo generator! Please get started by picking your desired shape:',
+            message: 'Finally, pick your desired shape:',
             name: 'logoShape',
             choices: ['Triangle','Circle','Square']
 
@@ -29,6 +30,9 @@ inquirer
             error ? console.error(`Sorry, something went wrong: ${error}`) : console.log('Successfully generated logo.svg!')
     );
      //   console.log('thanks!');
+    })
+    .catch((error) => {
+        
     })
 
 function createShape(response) {
@@ -53,7 +57,7 @@ function createShape(response) {
         </g>
 </svg>`;
 
-
     }
+
 
     
