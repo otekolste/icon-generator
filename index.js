@@ -12,26 +12,32 @@ inquirer
             validate: checkInput.check
         },
         {
-            type: 'input',
-            message: 'Next, enter a color keyword or code:',
-            name: 'logoColor',
+            type:'input',
+            message: 'Now, input a color keyword or code for your text:',
+            name: 'logoTextColor'
+
         },
         {
             type: 'list',
-            message: 'Finally, pick your desired shape:',
+            message: 'Next, pick your desired shape:',
             name: 'logoShape',
             choices: ['Triangle','Circle','Square']
 
+        },
+        {
+            type: 'input',
+            message: 'Finally, enter a color keyword or code for your shape:',
+            name: 'logoColor',
         }
     ])
     .then((response) => {
-        console.log(response.logoShape);
         fs.writeFile('logo.svg',createShape(response), (error) =>
             error ? console.error(`Sorry, something went wrong: ${error}`) : console.log('Successfully generated logo.svg!')
     );
      //   console.log('thanks!');
     })
     .catch((error) => {
+        console.log(`Sorry, something went wrong: ${error}`)
         
     })
 
@@ -53,7 +59,7 @@ function createShape(response) {
         return `<svg width="300" height="200" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <g>
             ${newLogo.render()}
-            <text x="50%" y="50%" font-variant="small-caps" font-size="70" dominant-baseline="middle" text-anchor="middle" fill="white">${response.logoText}</text>
+            <text x="50%" y="50%" font-variant="small-caps" font-size="300%" dominant-baseline="middle" text-anchor="middle" fill="${response.logoTextColor}">${response.logoText}</text>
         </g>
 </svg>`;
 
